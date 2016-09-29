@@ -1,0 +1,45 @@
+html
+    head
+        title= title
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    body
+        nav.navbar.navbar-default
+            .container-fluid
+                .navbar-header
+                    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#bs-example-navbar-collapse-1", aria-expanded="false")
+                        span.sr-only Toggle Navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand Memorial Health
+
+                #bs-example-navbar-collapse-1.collapse.navbar-collapse
+                    ul.nav.navbar-nav.navbar-right
+                        li.active
+                            a(href="#") Find Doctor
+                                span.sr-only (current)
+                        li
+                            a(href="#") Services
+                        li
+                            a(href="#") My Memorial
+                        li
+                            a(href="#") Locations
+                        li
+                            ul.list-inline
+                                li
+                                    i.fa.fa-clock-o.fa-2x(style="line-height:20px; padding:10px 0;")
+                                li
+                                    i.fa.fa-phone.fa-2x(style="line-height:20px; padding:10px 0;")
+                                li
+                                    i.fa.fa-search.fa-2x(style="line-height:20px; padding:10px 0;")
+
+
+                        
+
+        block content
+        
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+        block scr
