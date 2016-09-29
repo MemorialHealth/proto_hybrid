@@ -2,4 +2,51 @@
 extends layout.pug
 
 block content
-    div Hello
+    div.container-fluid(style="padding:0;")
+        .row(style="margin:0;")
+            .col-sm-12(style="padding:0;")
+                div(style="background-image:url('http://miriadna.com/desctopwalls/images/max/Wheat-field-at-the-sunset.jpg'); height:450px; width:100%; background-position:left; background-size:cover; background-repeat: no-repeat;")
+                    div(style="padding-top:5%;")
+                        h1.text-center.text-white.heading Access medical records
+                        br
+                        h3.text-center.text-white.heading Personal, reliable, secure
+            
+            .col-sm-12(style="padding:0;")
+                div(style="background-color:#595959;")
+                    .container
+                        div.row.text-white(style="position:relative; padding:40px 0;")
+                            .pull-right 7/21/2016
+
+                            .col-md-3
+                                h1.text-center News
+                            .col-sm-12.col-md-9
+                                h4  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, magnam!
+                                p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto quia, adipisci explicabo ab fuga repellendus! Quisquam expedita, porro at possimus nihil tenetur, culpa itaque quidem saepe laudantium aut. Mollitia maiores ab omnis illo porro animi temporibus amet, dolore doloribus! Doloribus voluptate cumque accusantium excepturi odio ullam, eum eos voluptates unde.
+                            
+                            div#news.hide
+                                .col-sm-12.col-md-9.col-md-offset-3
+                                    br
+                                    br
+                                    
+                                    .pull-right 7/21/2016
+                                    h4  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, similique molestias perferendis accusantium nesciunt eveniet!
+                                    p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sequi facere velit magni dolore sapiente doloribus praesentium deserunt, molestias quae, sit ratione deleniti atque vitae itaque officiis sed eos maiores saepe, perferendis, similique id ullam. Natus, veniam provident soluta ad recusandae sed exercitationem! Provident nobis quos veritatis illum animi, possimus eligendi quasi vero ipsum pariatur, aliquid quaerat ad, similique dolores.
+                                
+                                    br
+                                    br
+
+                                    .pull-right 7/21/2016
+                                    h4  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, quis.
+                                    p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos placeat non quam nesciunt molestiae perferendis nemo earum provident tenetur laboriosam aspernatur in, necessitatibus reiciendis officia sint iste fugit facere illo iure, itaque asperiores est commodi, explicabo recusandae. Illo expedita, iusto quisquam, repellat obcaecati delectus minima.
+
+
+                            div(style="position:absolute; bottom:-35px; right:0;")
+                                span#expandNews.fa-stack.fa-lg.hover-orange(style="font-size:2.4em;")
+                                    i.fa.fa-circle.fa-stack-2x.text-primary.hoverable
+                                    i.fa.fa-plus.fa-stack-1x.fa-inverse
+
+block scr
+    script.
+        $('#expandNews').on('click', function(){
+            $('#news').toggleClass('hide');
+        });
