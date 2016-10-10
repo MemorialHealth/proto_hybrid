@@ -78,6 +78,96 @@ html
                 width:100%;
                 margin-top: 3%;
             }
+            .c-menu
+            {
+                position:fixed;
+                z-index:200;
+                background:#fff;
+                transition: transform 0.3s;
+            }
+            .c-menu-close
+            {
+                color: #fff;
+                font-size:14px;
+                border-radius: none;
+                box-shadow:none;
+                -webkit-appearance:none;
+                -moz-appearance:none;
+                appearance:none;
+                cursor:pointer;
+            }
+            .c-menu-close:focus{
+                outline:none;
+            }
+            //- Prevent awkward scrolling when menu is open
+            body.has-active-menu{
+                overflow:hidden;
+            }
+
+            .c-mask {
+                position:fixed;
+                z-index:100;
+                top:0;
+                left:0;
+                overflow:hidden;
+                width:0;
+                height:0;
+                background-color:#000;
+                opacity:0;
+                transition: opacity 0.3s, width 0s 0.3s, height 0s 0.3s;
+            }
+
+            .c-mask.is-active{
+                width:100%;
+                height:100%;
+                opacity:0.7;
+                transition: opacity 0.3s;
+            }
+            .slide-left{
+                width:100%;
+                height:100%;
+                overflow-y:auto;
+            }
+            .c-menu--slide-left.is-active{
+                transform:translateX(0);
+            }
+            @media all and (min-width: 320px){
+                .slide-left {
+                    width:300px;
+                    transform: translateX(300px);
+                }
+                .o-wrapper.has-push-left{ transform: translateX(-300px); }
+            }
+            .slide-left {
+                top: 0;
+                left:0;
+                transform: translateX(-100%);
+            }
+            .slide-left.is-active{
+                transform:translateX(0);
+            }
+
+            .o-wrapper.has-push-left{ transform: translateX(-100%); }
+            
+            .logo-bar
+            {
+                float: left;
+                line-height: 50px;
+                padding-right: 20px;
+                color: white;
+                font-size: 1.2em;
+            }
+            .list-nav li i
+            {
+                padding: 0 15px;
+                color: steelblue;
+            }
+
+            .list-nav li
+            {
+                font-size: 1.2em;
+                padding: 10px 0;
+            }
     body
         nav.navbar.navbar-default
             .container-fluid
@@ -87,6 +177,7 @@ html
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
+                    i.fa.fa-bars.logo-bar.c-button
                     a.navbar-brand Memorial Health
 
                 #bs-example-navbar-collapse-1.collapse.navbar-collapse
@@ -212,6 +303,40 @@ html
                                     i.fa.fa-search.fa-2x.point(style="line-height:20px; padding:10px 0;")
 
 
+        
+        
+        
+        
+
+        #c-menu--slide-left.c-menu.c-menu--slide-left.slide-left
+            div(style="position:relative;")
+                img.responsive-img(src="http://www.riversiderad.com/images/headers/hospitals/marietta.jpg", style="width:100%")
+                i#menu-close.fa.fa-close.c-menu-close(style="position:absolute; top: 5px; right: 5px; font-size:1.8em; text-shadow: 0px 2px #000;")
+
+            ul.list-unstyled.list-nav
+                li
+                    i.fa.fa-user-md
+                    span Find a Doctor
+                li
+                    i.fa.fa-medkit
+                    span Services
+                li
+                    i.fa.fa-map-marker
+                    span Locations
+                li
+                    i.fa.fa-clock-o
+                    span ER Wait Times
+                li
+                    i.fa.fa-phone
+                    span Contact
+                li
+                    i.fa.fa-building-o
+                    span Company
+                li
+                    i.fa.fa-heart(style="color:crimson")
+                    span Give
+
+        
         .modal-search.hide
             .container.text-center
                 h2.header Search Memorial
@@ -248,7 +373,7 @@ html
                                     span Option 4
 
         .modal-overlay.hide test
-        
+        #c-mask.c-mask
         block content
         
         script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js")
@@ -259,4 +384,140 @@ html
                 $('.modal-overlay').toggleClass('hide');
                 $('.modal-search').toggleClass('hide');
             });
+            (function(window) {
+
+                'use strict';
+
+                /**
+                * Extend Object helper function.
+                */
+                function extend(a, b) {
+                    for(var key in b) { 
+                    if(b.hasOwnProperty(key)) {
+                        a[key] = b[key];
+                    }
+                    }
+                    return a;
+                }
+
+                /**
+                * Each helper function.
+                */
+                function each(collection, callback) {
+                    for (var i = 0; i < collection.length; i++) {
+                    var item = collection[i];
+                    callback(item);
+                    }
+                }
+
+                /**
+                * Menu Constructor.
+                */
+                function Menu(options) {
+                    this.options = extend({}, this.options);
+                    extend(this.options, options);
+                    this._init();
+                }
+
+                /**
+                * Menu Options.
+                */
+                Menu.prototype.options = {
+                    wrapper: '#o-wrapper',          // The content wrapper
+                    type: 'slide-left',             // The menu type
+                    menuOpenerClass: '.c-button',   // The menu opener class names (i.e. the buttons)
+                    maskId: '#c-mask'               // The ID of the mask
+                };
+
+                /**
+                * Initialise Menu.
+                */
+                Menu.prototype._init = function() {
+                    this.body = document.body;
+                    this.wrapper = document.querySelector(this.options.wrapper);
+                    this.mask = document.querySelector(this.options.maskId);
+                    this.menu = document.querySelector('#c-menu--' + this.options.type);
+                    this.closeBtn = document.querySelector('#menu-close');
+                    this.menuOpeners = document.querySelectorAll(this.options.menuOpenerClass);
+                    this._initEvents();
+                };
+
+                /**
+                * Initialise Menu Events.
+                */
+                Menu.prototype._initEvents = function() {
+                    // Event for clicks on the close button inside the menu.
+                    this.closeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.close();
+                    }.bind(this));
+
+                    // Event for clicks on the mask.
+                    this.mask.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.close();
+                    }.bind(this));
+                };
+
+                /**
+                * Open Menu.
+                */
+                Menu.prototype.open = function() {
+                    this.body.classList.add('has-active-menu');
+                    this.wrapper.classList.add('has-' + this.options.type);
+                    this.menu.classList.add('is-active');
+                    this.mask.classList.add('is-active');
+                    this.disableMenuOpeners();
+                };
+
+                /**
+                * Close Menu.
+                */
+                Menu.prototype.close = function() {
+                    this.body.classList.remove('has-active-menu');
+                    this.wrapper.classList.remove('has-' + this.options.type);
+                    this.menu.classList.remove('is-active');
+                    this.mask.classList.remove('is-active');
+                    this.enableMenuOpeners();
+                };
+
+                /**
+                * Disable Menu Openers.
+                */
+                Menu.prototype.disableMenuOpeners = function() {
+                    each(this.menuOpeners, function(item) {
+                    item.disabled = true;
+                    });
+                };
+
+                /**
+                * Enable Menu Openers.
+                */
+                Menu.prototype.enableMenuOpeners = function() {
+                    each(this.menuOpeners, function(item) {
+                    item.disabled = false;
+                    });
+                };
+
+                /**
+                * Add to global namespace.
+                */
+                window.Menu = Menu;
+
+                })(window);
+
+                var slideLeft = new Menu({
+                    wrapper: '#o-wrapper',
+                    type: 'slide-left',
+                    menuOpenerClass: '.c-button',
+                    maskId: '#c-mask'
+                });
+
+                var slideLeftBtn = document.querySelector('.c-button');
+
+                slideLeftBtn.addEventListener('click', function(e) {
+                    e.preventDefault;
+                    slideLeft.open();
+                });
+
         block scr
