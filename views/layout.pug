@@ -35,6 +35,32 @@ html
                 cursor:pointer;
             }
             .point { cursor:pointer; }
+            .main-menu li { position:relative; }
+            .main-menu li:hover .sub-menu { display:block; }
+            .main-menu .sub-menu { display:none; position:absolute; top: 50px; left:-200px; background-color:white; z-index: 2; width:600px; padding:10px;}
+            .main-menu .sub-menu a { font-size: 0.8em; line-height: 3em; }
+            .btn-flat { color:steelblue; text-transform: uppercase; background:transparent; border:0; }
+            .sub-menu form .col-xs-12 { margin: 12px 0; }
+            .my-memorial {
+                position:relative;
+                height: 300px;
+                background: url(https://mymemorial.mhsystem.org/PublishingImages/Meditech_MemorialOne_700x290_banner.jpg) 0 0 no-repeat;
+                background-size: cover;
+                color:white;
+            }
+            .my-memorial p 
+            {
+                font-size: 1.2em;
+                text-shadow: 2px 2px #000;
+                padding: 12px;
+            }
+            .main-menu .sub-menu.locations {
+                width: 300px;
+                left: -100px;
+            }
+            .locations hr { margin-top: 0; margin-bottom:0; }
+            .locations .row { padding: 5px 0;}
+            .locations .row:hover { background: ghostwhite;}
     body
         nav.navbar.navbar-default
             .container-fluid
@@ -47,16 +73,118 @@ html
                     a.navbar-brand Memorial Health
 
                 #bs-example-navbar-collapse-1.collapse.navbar-collapse
-                    ul.nav.navbar-nav.navbar-right
+                    ul.nav.navbar-nav.navbar-right.main-menu
                         li.active
                             a(href="#") Find Doctor
                                 span.sr-only (current)
+                            
+                            .sub-menu
+                                h4.header Find Doctor
+                                form
+                                    .form-group
+                                        .col-xs-12
+                                            select.form-control
+                                                option(value="", selected) Find a Doctor: who specializes in
+                                    .form-group
+                                        .col-xs-12
+                                            input.form-control(placeholder="or by name")
+                                    .form-group
+                                        .col-xs-12
+                                            input.form-control(placeholder="or by facility")
+                                    hr
+                                    .row
+                                        .col-xs-4.col-xs-offset-8
+                                            button.btn.btn-flat cancel
+                                            button.btn.btn-flat find
+
                         li
                             a(href="#") Services
+                            .sub-menu
+                                h4.header Browse by Category
+                                .row
+                                    .col-xs-4
+                                        a(href="#") Allergy and Immunology
+                                    .col-xs-4
+                                        a(href="#") Digestive
+                                    .col-xs-4
+                                        a(href="#") Mouth, Teeth, Face
+                                .row
+                                    .col-xs-4
+                                        a(href="#") Blood (hematology)
+                                    .col-xs-4
+                                        a(href="#") Endocrine, Diabetes & Metabolism
+                                    .col-xs-4
+                                        a(href="#") Obestrics & Gynecology
+                                .row
+                                    .col-xs-4
+                                        a(href="#") Brain, Spine & Nervous System
+                                    .col-xs-4
+                                        a(href="#") Heart
+                                    .col-xs-4
+                                        a(href="#") Pediatrics
+                                .row
+                                    .col-xs-4
+                                        a(href="#") Cancer
+                                    .col-xs-4
+                                        a(href="#") Infectious Disease
+                                    .col-xs-4
+                                        a(href="#") Psychiatry
+                                .row
+                                    .col-xs-4
+                                        a(href="#") Circulatory
+                                    .col-xs-4
+                                        a(href="#") Kidneys
+                                    .col-xs-4
+                                        a(href="#") Rheumatology
+                                .row
+                                    .col-xs-4
+                                        a(href="#") Dematology
+                                    .col-xs-4
+                                        a(href="#") Lung
+                                    .col-xs-4
+                                        a(href="#") Urology
                         li
                             a(href="#") My Memorial
+                            .sub-menu
+                                .my-memorial
+                                    p Some creative stuff about memorial
+                                    .memorial-go
+                                        button.btn-flat.text-white View
+                                
                         li
                             a(href="#") Locations
+                            .sub-menu.locations
+                                .row
+                                    .col-xs-3
+                                        span.fa-stack
+                                            i.fa.fa-circle.fa-stack-2x(style="color:steelblue;")
+                                            i.fa.fa-stack-1x(style="font-size:.9em;") M
+                                    .col-xs-9
+                                        b Marietta Memorial
+                                        p
+                                            small.text-muted 555-555-5555
+                                hr
+                                .row
+                                    .col-xs-3
+                                        span.fa-stack
+                                            i.fa.fa-circle.fa-stack-2x(style="color:tomato;")
+                                            i.fa.fa-stack-1x(style="font-size:.9em;") S
+                                    .col-xs-9
+                                        b Selby General
+                                        p
+                                            small.text-muted 555-555-5555
+                                hr
+                                .row
+                                    .col-xs-3
+                                        span.fa-stack
+                                            i.fa.fa-circle.fa-stack-2x(style="color:cadetblue;")
+                                            i.fa.fa-stack-1x(style="font-size:.9em;") B
+                                    .col-xs-9
+                                        b Belpre
+                                        p
+                                            small.text-muted 555-555-5555
+                                                
+
                         li
                             ul.list-inline
                                 li
