@@ -61,6 +61,23 @@ html
             .locations hr { margin-top: 0; margin-bottom:0; }
             .locations .row { padding: 5px 0;}
             .locations .row:hover { background: ghostwhite;}
+            .modal-overlay
+            {
+                position:fixed;
+                width:100%;
+                height:100%;
+                z-index:4;
+                background: rgba(10,10,10, .9);
+                top:0;
+            }
+            .modal-search
+            {
+                color:white;
+                position: fixed;
+                z-index: 6;
+                width:100%;
+                margin-top: 3%;
+            }
     body
         nav.navbar.navbar-default
             .container-fluid
@@ -188,17 +205,58 @@ html
                         li
                             ul.list-inline
                                 li
-                                    i.fa.fa-clock-o.fa-2x(style="line-height:20px; padding:10px 0;")
+                                    i.fa.fa-clock-o.fa-2x.point(style="line-height:20px; padding:10px 0;")
                                 li
-                                    i.fa.fa-phone.fa-2x(style="line-height:20px; padding:10px 0;")
+                                    i.fa.fa-phone.fa-2x.point(style="line-height:20px; padding:10px 0;")
+                                li#search
+                                    i.fa.fa-search.fa-2x.point(style="line-height:20px; padding:10px 0;")
+
+
+        .modal-search.hide
+            .container.text-center
+                h2.header Search Memorial
+                    i#close.fa.fa-close.pull-right.point
+                .row
+                    form
+                        .form-group
+                            .input-group(style="height:55px;")
+                                .input-group-addon
+                                    i.fa.fa-search(style="steelblue")
+                                input.form-control(placeholder="Search..", style="height: 55px; font-size:1.3em;")
+                .row
+                    .col-xs-4
+                        p Top Searches
+                            ul.list-unstyled
                                 li
-                                    i.fa.fa-search.fa-2x(style="line-height:20px; padding:10px 0;")
+                                    span Search 1
+                                li
+                                    span Search 2
+                                li
+                                    span Search 3
+                                li
+                                    span Search 4
+                    .col-xs-4
+                        p Search For
+                            ul.list-unstyled
+                                li
+                                    span Option 1
+                                li
+                                    span Option 2
+                                li
+                                    span Option 3
+                                li
+                                    span Option 4
 
-
-                        
-
+        .modal-overlay.hide test
+        
         block content
         
         script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+        script.
+            $('#search,#close').on('click', function(){
+                console.log('toggling');
+                $('.modal-overlay').toggleClass('hide');
+                $('.modal-search').toggleClass('hide');
+            });
         block scr
